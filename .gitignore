@@ -1,0 +1,19 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+env/
+venv/
+
+# Django local database
+db.sqlite3
+db.sqlite3-journal
+
+# Media / Uploads (if you add user-uploaded files later)
+media/
+
+# IDE / Editor folders (optional but recommended)
+.vscode/
+.idea/
