@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Login — SL Flood Watch{% endblock %}
+{% load static %}
+{% block title %}Login — SLFloodWatch{% endblock %}
+
+{% block extra_head %} <link href="{% static 'css/login.css' %}" rel="stylesheet"> {% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center align-items-center min-vh-75">
     <div class="col-md-5">
         <div class="card shadow-sm auth-card">
             <div class="card-body p-4">
-                <h3 class="mb-4 text-center"><i class="bi bi-water"></i>Sign In</h3>
+                <h3 class="mb-4 text-center"><i class="bi bi-water"></i> Sign In</h3>
                 <form action="" method="post">
                     {% csrf_token %}
                     {% if form.errors %}
