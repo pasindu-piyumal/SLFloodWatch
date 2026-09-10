@@ -1,0 +1,9 @@
+Django==5.2.6
+scikit-learn
+pandas
+numpy
+joblib
+jupyterlab
+matplotlib
+seaborn
+requests
