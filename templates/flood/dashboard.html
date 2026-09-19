@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_head %} 
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to<br><span class="bulbing-text">SLFloodWatch</span></h1>
+        <p>Analyzing Sri Lanka Flood & Disaster Data for 2024 - 2025 and Advanced flood prediction and real-time river level monitoring.</p>
+        <div class="d-flex mt-4">
+            <a href="#latest-updates" class="btn-custom-primary">Latest updates</a>
+            <a href="#locations" class="btn-custom-light">Locations</a>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-data-container mt-10" id="latest-upadates">
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-6">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div class="text-muted small">Monitored Locations</div>
+                    <div class="fs-2 fw-bold">{{ total_locations }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div class="text-muted small">Low Risk Locations</div>
+                    <div class="fs-2 fw-bold">{{ risk_counts.low }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div class="text-muted small">Medium Risk Locations</div>
+                    <div class="fs-2 fw-bold">{{ risk_counts.medium }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div class="text-muted small">High Risk Locations</div>
+                    <div class="fs-2 fw-bold">{{ risk_counts.high }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-4">
+        <div class="col-lg-6">
+            <div class="card dashboard-content-card h-100">
+                <div class="card-header py-3">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i> Critical Alerts (2024-2025)</h5>
+                </div>
+                <ul class="list-group">
+                    {% for alert in recent_alerts %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-{{ alert.location.risk_badge_class }} me-2">{{ alert.risk_level|upper }}</span>
+                            <a href="{{ alert.location.get_absolute_url }}" class="fw-bold text-decoration-none">{{ alert.location }}</a>
+                            <div class="small text-muted mt-1">{{ alert.message }}</div>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-muted">No active alerts in the current dataset.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card dashboard-content-card h-100">
+                <div class="card-header py-3">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-graph-up me-2"></i> Recent Readings (2024-2025)</h5>
+                </div>
+                <ul class="list-group">
+                    {% for record in recent_records %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <a href="{{ record.location.get_absolute_url }}" class="fw-bold text-decoration-none">{{ record.location }}</a>
+                            <div class="small text-muted mt-1">30d rainfall {{ record.monthly_rainfall_mm }}mm · Risk Score {{ record.flood_risk_score }}</div>
+                        </div>
+                        <span class="badge bg-{{ record.location.risk_badge_class }}">{{ record.risk_level|upper }}</span>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-muted">No 2024-2025 readings found. Run the dataset import command.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% if district_counts %}
+    <div class="mt-5 district-distribution-section">
+        <h5 class="fw-bold mb-3 text-white"><i class="bi bi-map me-2 opacity-75"></i> 2024-2025 Dataset Distributions (Top 8 Districts)</h5>
+        <div class="row g-3">
+            {% for d in district_counts %}
+            <div class="col-md-3 col-6">
+                <div class="card shadow-sm border-0 district-card">
+                    <div class="card-body py-2 px-3 d-flex justify-content-between align-items-center">
+                        <span class="fw-bold text-dark">{{ d.district }}</span>
+                        <span class="badge bg-primary rounded-pill shadow-sm">{{ d.total }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if high_risk_locations %}
+    <div class="mt-5 mb-5 priority-action-section">
+        <h5 class="fw-bold mb-3 text-white"><i class="bi bi-exclamation-octagon-fill text-danger me-2"></i> Priority Action Required: High Risk Locations</h5>
+        <div class="row g-3">
+            {% for loc in high_risk_locations %}
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 priority-card">
+                    <div class="card-body p-4">
+                        <h6 class="card-title fw-bold text-dark mb-1">{{ loc.name }}</h6>
+                        <p class="card-text small text-muted mb-3"><i class="bi bi-geo-alt-fill me-1 opacity-50"></i>{{ loc.district }} District</p>
+                        <a href="{{ loc.get_absolute_url }}" class="btn btn-sm btn-danger mitigation-btn w-100">View Mitigation Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
