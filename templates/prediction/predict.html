@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Predict Flood Risk - SLFloodWatch{% endblock %}
+
+{% block extra_head %} 
+    <link rel="stylesheet" href="{% static 'css/prediction.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7 col-lg-6">
+    <div class="card shadow-sm border-0 my-4">
+      <div class="card-body p-4">
+        <h3 class="text-primary text-center mb-4">
+          <i class="bi bi-graph-up-arrow me-2"></i>Predict Flood Risk
+        </h3>
+        
+        <form method="POST">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small mt-1">{{ field.errors|striptags }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary w-100 py-2 mt-2 fw-semibold">
+            <i class="bi bi-cpu me-1"></i> Predict Flood Risk
+          </button>
+        </form>
+
+        {% if risk_level %}
+          <div class="mt-4 p-3 rounded text-center 
+            {% if risk_level|lower == 'high' %}bg-danger text-white
+            {% elif risk_level|lower == 'medium' %}bg-warning text-dark
+            {% else %}bg-success text-white{% endif %}">
+            <h4 class="mb-0 text-uppercase fw-bold">Risk Level: {{ risk_level }}</h4>
+            
+            {% if probabilities %}
+              <div class="mt-3 text-start bg-white text-dark p-3 rounded shadow-sm">
+                <span class="fw-bold d-block mb-2">Class Probabilities:</span>
+                <ul class="list-unstyled mb-0">
+                  {% for cls, pct in probabilities.items %}
+                    <li class="d-flex justify-content-between py-1 border-bottom">
+                      <span class="text-capitalize">{{ cls }}</span>
+                      <strong>{{ pct }}%</strong>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
