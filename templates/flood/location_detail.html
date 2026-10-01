@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ location.name }} — SL Flood Watch{% endblock %}
+
+{% block extra_head %} 
+    <link rel="stylesheet" href="{% static 'css/location_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'locations' %}">Locations</a></li>
+        <li class="breadcrumb-item active">{{ location.name }}</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3>{{ location.name }}</h3>
+                <p class="text-muted mb-1">{{ location.district }} District · {{ location.urban_rural }}</p>
+                <p class="mb-3">
+                    Current risk:
+                    <span class="badge bg-{{ location.risk_badge_class }} fs-6">
+                        {{ location.current_risk_level|upper }}
+                    </span>
+                    {% if not location.is_good_to_live %}
+                        <span class="badge bg-secondary fs-6">Not recommended for settlement</span>
+                    {% endif %}
+                </p>
+                {% if location.reason_not_good_to_live %}
+                    <p class="small text-muted">Reason: {{ location.reason_not_good_to_live }}</p>
+                {% endif %}
+
+                <table class="table table-sm mb-3">
+                    <tbody>
+                        <tr><th class="text-muted">Elevation</th><td>{{ location.elevation_m }} m</td></tr>
+                        <tr><th class="text-muted">Distance to river</th><td>{{ location.distance_to_river_m }} m</td></tr>
+                        <tr><th class="text-muted">Land cover</th><td>{{ location.landcover|default:"—" }}</td></tr>
+                        <tr><th class="text-muted">Soil type</th><td>{{ location.soil_type|default:"—" }}</td></tr>
+                        <tr><th class="text-muted">Water supply</th><td>{{ location.water_supply|default:"—" }}</td></tr>
+                        <tr><th class="text-muted">Electricity</th><td>{{ location.electricity|default:"—" }}</td></tr>
+                        <tr><th class="text-muted">Road quality</th><td>{{ location.road_quality|default:"—" }}</td></tr>
+                        <tr><th class="text-muted">Infrastructure score</th><td>{{ location.infrastructure_score }}/100</td></tr>
+                        <tr><th class="text-muted">Nearest hospital</th><td>{{ location.nearest_hospital_km }} km</td></tr>
+                        <tr><th class="text-muted">Nearest evac point</th><td>{{ location.nearest_evac_km }} km</td></tr>
+                    </tbody>
+                </table>
+
+                <p class="small text-muted">Last updated {{ location.updated_at|timesince }} ago</p>
+                <a href="{% url 'prediction:predict_flood' %}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-cpu"></i> Run a Prediction
+                </a>
+            </div>
+        </div>
+
+        {% if alerts %}
+        <div class="card shadow-sm mt-3">
+            <div class="card-header">Active Alerts</div>
+            <ul class="list-group list-group-flush">
+                {% for alert in alerts %}
+                <li class="list-group-item">{{ alert.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header">Monthly Rainfall &amp; Flood Risk Score Trend</div>
+            <div class="card-body">
+                <canvas id="trendChart" height="120"></canvas>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header">Readings on Record</div>
+            <div class="table-responsive">
+                <table class="table mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Rain (7d)</th>
+                            <th>Rain (30d)</th>
+                            <th>Drainage</th>
+                            <th>Risk Score</th>
+                            <th>Risk</th>
+                            <th>Flood Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in records %}
+                        <tr>
+                            <td>{{ r.date }}</td>
+                            <td>{{ r.rainfall_7d_mm }} mm</td>
+                            <td>{{ r.monthly_rainfall_mm }} mm</td>
+                            <td>{{ r.drainage_index }}</td>
+                            <td>{{ r.flood_risk_score }}</td>
+                            <td><span class="badge bg-{{ location.risk_badge_class }}">{{ r.risk_level|upper }}</span></td>
+                            <td>
+                                {% if r.flood_occurrence %}
+                                    <span class="badge bg-danger">Yes</span>
+                                {% else %}
+                                    <span class="text-muted">No</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="7" class="text-center text-muted py-3">No records yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+    const ctx = document.getElementById('trendChart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ chart_labels_json|safe }},
+            datasets: [
+                {
+                    label: 'Monthly Rainfall (mm)',
+                    data: {{ chart_rainfall_json|safe }},
+                    borderColor: '#0d6efd',
+                    tension: 0.3,
+                    yAxisID: 'y',
+                },
+                {
+                    label: 'Flood Risk Score (0-100)',
+                    data: {{ chart_risk_score_json|safe }},
+                    borderColor: '#dc3545',
+                    tension: 0.3,
+                    yAxisID: 'y1',
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } },
+            scales: {
+                y: { type: 'linear', position: 'left', title: { display: true, text: 'mm' } },
+                y1: { type: 'linear', position: 'right', title: { display: true, text: 'score' }, grid: { drawOnChartArea: false } },
+            },
+        },
+    });
+</script>
+{% endblock %}
