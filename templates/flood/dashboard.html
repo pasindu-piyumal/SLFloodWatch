@@ -14,8 +14,8 @@
         <h1>Welcome to<br><span class="bulbing-text">SLFloodWatch</span></h1>
         <p>Analyzing Sri Lanka Flood & Disaster Data for 2024 - 2025 and Advanced flood prediction and real-time river level monitoring.</p>
         <div class="d-flex mt-4">
-            <a href="#latest-updates" class="btn-custom-primary">Latest updates</a>
-            <a href="#locations" class="btn-custom-light">Locations</a>
+            <a href="{% url 'prediction:predict_flood' %}" class="btn-custom-primary">Predict Flood Risk</a>
+            <a href="{% url 'locations' %}" class="btn-custom-light">Locations</a>
         </div>
     </div>
 </div>
