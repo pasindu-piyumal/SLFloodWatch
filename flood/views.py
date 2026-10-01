@@ -55,7 +55,7 @@ def locations(request):
         if urban_rural:
             queryset = queryset.filter(urban_rural=urban_rural)
 
-    queryset = queryset.annotate(record_count=Count('records'))[':500']
+    queryset = queryset.annotate(record_count=Count('records'))[:500]
 
     context = {
         'form': form,
