@@ -1,0 +1,733 @@
+/* =========================================================
+   SLFloodWatch - Live River Levels
+   Dark Neon / Real-Time Monitoring Theme
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE BACKGROUND
+   ========================================================= */
+
+body {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(0, 245, 255, 0.08),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(255, 45, 117, 0.06),
+            transparent 30%
+        ),
+        #07111f;
+
+    color: #e6f7ff;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+h2 {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+
+    text-shadow:
+        0 0 15px rgba(0, 245, 255, 0.15);
+}
+
+h2 i {
+    color: #00f5ff;
+
+    text-shadow:
+        0 0 12px rgba(0, 245, 255, 0.45);
+}
+
+.text-muted {
+    color: #7891a3 !important;
+}
+
+
+/* =========================================================
+   REFRESH BUTTON
+   ========================================================= */
+
+.btn-outline-primary {
+    color: #00f5ff !important;
+
+    border: 1px solid rgba(0, 245, 255, 0.40) !important;
+
+    background: rgba(0, 245, 255, 0.04) !important;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    padding: 8px 16px;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+        0 0 12px rgba(0, 245, 255, 0.03);
+}
+
+.btn-outline-primary:hover {
+    background: #00f5ff !important;
+
+    border-color: #00f5ff !important;
+
+    color: #041018 !important;
+
+    box-shadow:
+        0 0 20px rgba(0, 245, 255, 0.30);
+
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary:active {
+    transform: translateY(0);
+}
+
+.btn-outline-primary i {
+    margin-right: 5px;
+}
+
+
+/* =========================================================
+   RIVER CARDS
+   ========================================================= */
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 34, 52, 0.96),
+            rgba(8, 23, 38, 0.96)
+        ) !important;
+
+    color: #dceff7;
+
+    border: 1px solid rgba(0, 245, 255, 0.13) !important;
+
+    border-radius: 16px !important;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.35),
+        0 0 25px rgba(0, 245, 255, 0.03);
+
+    backdrop-filter: blur(12px);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(0, 245, 255, 0.28) !important;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.42),
+        0 0 30px rgba(0, 245, 255, 0.07);
+}
+
+
+/* =========================================================
+   CARD BODY
+   ========================================================= */
+
+.card-body {
+    padding: 22px;
+}
+
+
+/* =========================================================
+   STATION NAME
+   ========================================================= */
+
+.card-title {
+    color: #ffffff;
+
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
+
+    margin-bottom: 5px !important;
+}
+
+.card-title::before {
+    content: "📍 ";
+
+    font-size: 0.85em;
+}
+
+
+/* =========================================================
+   RIVER NAME
+   ========================================================= */
+
+.card-body p.text-muted {
+    color: #7891a3 !important;
+
+    font-size: 0.86rem;
+}
+
+.card-body p.text-muted i {
+    color: #00bcd4;
+
+    margin-right: 4px;
+}
+
+
+/* =========================================================
+   CURRENT WATER LEVEL
+   ========================================================= */
+
+.text-center.py-3 {
+    margin: 18px 0;
+
+    padding: 22px 10px !important;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0, 245, 255, 0.08),
+            transparent 65%
+        );
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(0, 245, 255, 0.07);
+}
+
+
+/* CURRENT WATER LEVEL LABEL */
+
+.text-center.py-3 .small {
+    color: #7891a3 !important;
+
+    font-size: 0.70rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+}
+
+
+/* WATER LEVEL NUMBER */
+
+.display-5 {
+    color: #00f5ff !important;
+
+    font-size: 2.7rem;
+
+    font-weight: 800;
+
+    margin-top: 5px;
+
+    text-shadow:
+        0 0 15px rgba(0, 245, 255, 0.25);
+}
+
+
+/* UNIT */
+
+.display-5 .fs-5 {
+    color: #8ca9b8;
+
+    font-size: 0.95rem !important;
+
+    font-weight: 600;
+
+    text-shadow: none;
+}
+
+
+/* =========================================================
+   PREVIOUS LEVEL
+   ========================================================= */
+
+.border-top {
+    border-color: rgba(0, 245, 255, 0.10) !important;
+}
+
+.d-flex.justify-content-between.border-top {
+    padding-top: 14px !important;
+}
+
+.d-flex.justify-content-between.border-top span {
+    color: #7891a3 !important;
+}
+
+.d-flex.justify-content-between.border-top strong {
+    color: #dceff7;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ALERT THRESHOLDS
+   ========================================================= */
+
+.card h6 {
+    color: #7891a3 !important;
+
+    font-size: 0.78rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+
+    font-weight: 700;
+}
+
+
+/* Threshold columns */
+
+.card .row.text-center {
+    background: rgba(0, 245, 255, 0.025);
+
+    border: 1px solid rgba(0, 245, 255, 0.07);
+
+    border-radius: 10px;
+
+    padding: 12px 5px;
+}
+
+.card .row.text-center .small {
+    color: #71899a !important;
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   THRESHOLD COLORS
+   ========================================================= */
+
+.text-warning {
+    color: #fde047 !important;
+
+    text-shadow:
+        0 0 8px rgba(250, 204, 21, 0.15);
+}
+
+
+/* Custom orange */
+
+.text-orange {
+    color: #fb923c !important;
+
+    text-shadow:
+        0 0 8px rgba(251, 146, 60, 0.18);
+}
+
+
+.text-danger {
+    color: #ff6b6b !important;
+
+    text-shadow:
+        0 0 8px rgba(255, 107, 107, 0.18);
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 90px;
+
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 0.70rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* NORMAL */
+
+.badge.bg-success {
+    background: rgba(34, 197, 94, 0.15) !important;
+
+    color: #4ade80 !important;
+
+    border: 1px solid rgba(74, 222, 128, 0.30);
+
+    box-shadow:
+        0 0 10px rgba(74, 222, 128, 0.05);
+}
+
+
+/* ALERT */
+
+.badge.bg-warning {
+    background: rgba(250, 204, 21, 0.15) !important;
+
+    color: #fde047 !important;
+
+    border: 1px solid rgba(250, 204, 21, 0.30);
+
+    box-shadow:
+        0 0 10px rgba(250, 204, 21, 0.06);
+}
+
+
+/* MAJOR FLOOD */
+
+.badge.bg-danger {
+    background: rgba(239, 68, 68, 0.15) !important;
+
+    color: #ff6b6b !important;
+
+    border: 1px solid rgba(255, 107, 107, 0.35);
+
+    animation: floodPulse 2.5s infinite;
+}
+
+
+/* OTHER STATUS */
+
+.badge.bg-secondary {
+    background: rgba(148, 163, 184, 0.12) !important;
+
+    color: #aebdca !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+
+/* =========================================================
+   FLOOD ALERT ANIMATION
+   ========================================================= */
+
+@keyframes floodPulse {
+
+    0% {
+        box-shadow:
+            0 0 0 rgba(255, 70, 70, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 14px rgba(255, 70, 70, 0.25);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 rgba(255, 70, 70, 0);
+    }
+
+}
+
+
+/* =========================================================
+   LAST UPDATED
+   ========================================================= */
+
+.border-top.mt-3 {
+    margin-top: 18px !important;
+
+    padding-top: 13px !important;
+}
+
+.border-top.mt-3 .small {
+    color: #7891a3 !important;
+}
+
+.border-top.mt-3 .fw-semibold {
+    color: #c9dce5;
+
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   VIEW STATION BUTTON
+   ========================================================= */
+
+.btn-outline-primary.btn-sm.w-100 {
+    margin-top: 3px;
+
+    padding: 9px 12px;
+
+    font-size: 0.78rem;
+
+    border-radius: 9px;
+}
+
+
+/* =========================================================
+   NO DATA CARD
+   ========================================================= */
+
+.card.shadow-sm .display-1 {
+    color: #00bcd4 !important;
+
+    opacity: 0.45;
+
+    text-shadow:
+        0 0 25px rgba(0, 245, 255, 0.25);
+}
+
+.card.shadow-sm h4 {
+    color: #ffffff;
+
+    font-weight: 700;
+
+    margin-top: 15px;
+}
+
+.card.shadow-sm .card-body > p.text-muted {
+    color: #7891a3 !important;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.btn-primary {
+    border: none !important;
+
+    border-radius: 10px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00bcd4,
+            #00f5ff
+        ) !important;
+
+    color: #031018 !important;
+
+    font-weight: 700;
+
+    padding: 9px 17px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 245, 255, 0.18);
+
+    transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #00f5ff,
+            #00c6d7
+        ) !important;
+
+    color: #020b12 !important;
+
+    box-shadow:
+        0 8px 25px rgba(0, 245, 255, 0.30);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
+.bi {
+    vertical-align: -1px;
+}
+
+
+/* =========================================================
+   CARD ANIMATION
+   ========================================================= */
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}
+
+.col-md-6.col-xl-4 {
+    animation:
+        cardAppear 0.5s ease both;
+}
+
+
+/* Stagger card animations */
+
+.col-md-6.col-xl-4:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.col-md-6.col-xl-4:nth-child(2) {
+    animation-delay: 0.10s;
+}
+
+.col-md-6.col-xl-4:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.col-md-6.col-xl-4:nth-child(4) {
+    animation-delay: 0.20s;
+}
+
+.col-md-6.col-xl-4:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.col-md-6.col-xl-4:nth-child(6) {
+    animation-delay: 0.30s;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .display-5 {
+        font-size: 2.4rem;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-4 {
+        align-items: flex-start !important;
+
+        gap: 15px;
+    }
+
+    .btn-outline-primary {
+        padding: 8px 12px;
+
+        font-size: 0.78rem;
+    }
+
+    .card {
+        border-radius: 13px !important;
+    }
+
+    .card-body {
+        padding: 18px;
+    }
+
+    .display-5 {
+        font-size: 2.3rem;
+    }
+
+    .badge {
+        min-width: 78px;
+
+        font-size: 0.65rem;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .d-flex.justify-content-between.align-items-center.mb-4 {
+        flex-direction: column;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-4 > div:last-child {
+        width: 100%;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-4
+    .btn-outline-primary {
+        width: 100%;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .display-5 {
+        font-size: 2rem;
+    }
+
+    .card .row.text-center {
+        padding: 10px 2px;
+    }
+
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #07111f;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1b5268;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00a9bd;
+}

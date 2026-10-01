@@ -1,0 +1,296 @@
+body {
+    background:
+        radial-gradient(circle at top right, rgba(0, 245, 255, 0.08), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(255, 45, 117, 0.06), transparent 30%),
+        #07111f;
+    color: #e6f7ff;
+}
+
+h2 {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 1.5rem !important;
+    text-shadow: 0 0 15px rgba(0, 245, 255, 0.15);
+}
+
+h2::before {
+    content: "🌊 ";
+}
+
+form.row {
+    background: rgba(15, 30, 48, 0.75);
+    border: 1px solid rgba(0, 245, 255, 0.15);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+}
+
+form input,
+form select {
+    width: 100%;
+    height: 42px;
+    background: #0b1b2b !important;
+    color: #e8faff !important;
+    border: 1px solid #1c3b52 !important;
+    border-radius: 10px !important;
+    padding: 8px 12px;
+    transition: all 0.25s ease;
+}
+
+form input::placeholder {
+    color: #71889a;
+}
+
+form input:focus,
+form select:focus {
+    background: #0d2235 !important;
+    color: #ffffff !important;
+    border-color: #00f5ff !important;
+    box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.10),
+                0 0 15px rgba(0, 245, 255, 0.12) !important;
+    outline: none;
+}
+
+form select option {
+    background: #0b1b2b;
+    color: #ffffff;
+}
+
+form .btn-primary {
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00bcd4, #00f5ff);
+    color: #031018;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 18px rgba(0, 245, 255, 0.18);
+}
+
+form .btn-primary:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #00f5ff, #00c6d7);
+    box-shadow: 0 8px 25px rgba(0, 245, 255, 0.30);
+    color: #020b12;
+}
+
+form .btn-primary:active {
+    transform: translateY(0);
+}
+
+.text-muted {
+    color: #7891a3 !important;
+}
+
+p.text-muted {
+    margin-top: 12px;
+}
+
+.table-responsive {
+    margin-top: 10px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 245, 255, 0.12);
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.35),
+        0 0 25px rgba(0, 245, 255, 0.03);
+}
+
+.table {
+    margin-bottom: 0 !important;
+    background: #0b1827 !important;
+    color: #d9edf5 !important;
+}
+
+.table thead {
+    background: linear-gradient(
+        135deg,
+        #102a40,
+        #0b1e31
+    ) !important;
+}
+
+.table thead th {
+    background: transparent !important;
+    color: #00f5ff !important;
+    border-bottom: 1px solid rgba(0, 245, 255, 0.20) !important;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    padding: 16px 14px;
+    white-space: nowrap;
+}
+
+.table tbody tr {
+    background: #0b1827 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.25s ease;
+}
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table tbody td {
+    background: transparent !important;
+    color: #c9dce5 !important;
+    border: none !important;
+    padding: 15px 14px;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(0, 245, 255, 0.055) !important;
+    transform: translateX(2px);
+    box-shadow: inset 3px 0 0 #00f5ff;
+}
+
+.table-hover tbody tr:hover td {
+    color: #ffffff !important;
+}
+
+.table tbody td:first-child {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 75px;
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+}
+
+.badge.bg-success,
+.badge.bg-low {
+    background: rgba(34, 197, 94, 0.15) !important;
+    color: #4ade80 !important;
+    border: 1px solid rgba(74, 222, 128, 0.30);
+}
+
+.badge.bg-warning,
+.badge.bg-medium {
+    background: rgba(250, 204, 21, 0.15) !important;
+    color: #fde047 !important;
+    border: 1px solid rgba(250, 204, 21, 0.30);
+}
+
+.badge.bg-danger,
+.badge.bg-high {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: #ff6b6b !important;
+    border: 1px solid rgba(255, 107, 107, 0.35);
+    animation: highRiskPulse 2.5s infinite;
+}
+
+@keyframes highRiskPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 70, 70, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 12px rgba(255, 70, 70, 0.20);
+    }
+
+    100% {
+        box-shadow: 0 0 0 rgba(255, 70, 70, 0);
+    }
+}
+
+.table .btn-outline-primary {
+    color: #00f5ff;
+    border: 1px solid rgba(0, 245, 255, 0.40);
+    background: rgba(0, 245, 255, 0.04);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 6px 13px;
+    transition: all 0.25s ease;
+}
+
+
+.table .btn-outline-primary:hover {
+    background: #00f5ff;
+    border-color: #00f5ff;
+    color: #041018;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.30);
+    transform: translateY(-1px);
+}
+
+.table tbody td.text-center {
+    color: #71899a !important;
+    padding: 45px 20px;
+}
+
+.table tbody td.text-center code {
+    color: #00f5ff;
+    background: rgba(0, 245, 255, 0.08);
+    padding: 4px 7px;
+    border-radius: 5px;
+}
+
+@media (max-width: 992px) {
+
+    form.row > div {
+        margin-bottom: 4px;
+    }
+
+    .table thead th {
+        font-size: 0.75rem;
+    }
+
+    .table tbody td {
+        font-size: 0.88rem;
+        padding: 13px 10px;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    form.row {
+        padding: 14px;
+    }
+
+    form .btn-primary {
+        margin-top: 3px;
+    }
+
+    .table-responsive {
+        border-radius: 12px;
+    }
+
+    .table {
+        min-width: 850px;
+    }
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 7px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #07111f;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #1b5268;
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #00a9bd;
+}

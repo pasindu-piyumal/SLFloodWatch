@@ -1,0 +1,227 @@
+/* Base & Typography */
+body {
+    background-color: #f8fafc;
+}
+
+/* Navigation & Footer */
+.app-navbar {
+    background: rgba(0, 0, 0, 0.95) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1rem 5% !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+    color: #ffffff;
+}
+
+@keyframes waveBorder {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+nav.app-navbar {
+    position: relative;
+    border-bottom: none !important;
+}
+
+nav.app-navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #0284c7, #38bdf8, #0369a1, #0284c7);
+    background-size: 200% 100%;
+    animation: waveBorder 4s linear infinite;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+.app-navbar .navbar-brand {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+footer.app-navbar {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: none;
+    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.03);
+}
+
+footer.app-navbar a {
+    color: #0284c7;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+footer.app-navbar a:hover {
+    color: #0369a1;
+    text-decoration: underline;
+}
+
+@keyframes waveFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.app-navbar .navbar-nav .nav-link {
+    color: #a3a4a7 !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 5px;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.app-navbar .navbar-nav .nav-link:hover,
+.app-navbar .navbar-nav .nav-link.active {
+    color: #ffffff !important;
+    background: linear-gradient(270deg, #0284c7, #0369a1, #38bdf8, #0284c7);
+    background-size: 300% 300%;
+    animation: waveFlow 4s ease infinite;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+    transform: translateY(-1px);
+}
+
+/* toggle */
+nav.app-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+nav.app-navbar .navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(56, 189, 248, 0.5);
+}
+
+nav.app-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Navbar collapse spacing */
+nav.app-navbar .navbar-collapse {
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-top: none;
+}
+
+/* Apply the separator line exclusively on mobile viewports when expanded */
+@media (max-width: 991.98px) {
+    nav.app-navbar .navbar-collapse.show,
+    nav.app-navbar .navbar-collapse.collapsing {
+        margin-top: 0.75rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Navigation Buttons */
+.btn-nav-outline {
+    color: #0f292a;
+    background-color: transparent;
+    border: 2px solid #cbd5e1;
+    border-radius: 30px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-nav-outline:hover {
+    background-color: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.btn-nav-solid {
+    color: #ffffff;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    border: none;
+    border-radius: 30px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-left: 15px;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-nav-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3);
+    color: #ffffff;
+}
+
+/* Dashboard Components  */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card {
+    border-left: 5px solid #cbd5e1;
+    background-color: #ffffff;
+}
+
+.result-card.border-high {
+    border: 2px solid #ef4444 !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.15);
+}
+
+.result-card.border-medium {
+    border: 2px solid #f59e0b !important;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);
+}
+
+.result-card.border-low {
+    border: 2px solid #10b981 !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.table thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    border-bottom: 2px solid #e2e8f0;
+}
