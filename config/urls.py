@@ -26,6 +26,8 @@ urlpatterns = [
     path('accounts/', include("accounts.urls")),
 
     path("", include("flood.urls")),
+    path('predict/', include('prediction.urls')),
+    path('river-monitor/', include("river_monitor.urls"))
 ]
 
 if settings.DEBUG:
